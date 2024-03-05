@@ -4,6 +4,6 @@
 - [Traffic Light](https://editor.p5js.org/schellenberg/sketches/j90CLq8bd)
 
 - ## Projects
-- Interactive Scene
+- Interactive scene
 
-- [Interactive Scene](Scene)
+- [Interactive Scene](scene)
