@@ -9,8 +9,8 @@
 let x = 0;
 let y = 0;
 let squareSize = 65;
-let speed = 7;
-let state = "right";
+let canSpeed = 3;
+let state = "down";
 
 function setup() {
   createCanvas(400, 400);
@@ -19,36 +19,17 @@ function setup() {
 function draw() {
   background(220);
   
-  if (state === "right") {
-    x += speed;
-    if (x + squareSize >= width) {
-      state = "down";
-      x = width - squareSize;
-    }
-  }
-  
-  else if (state === "down") {
-    y += speed;
-    if (y + squareSize >= height) {
-      state = "left";
+  if (state === "down" || state === "downRight" || state === "downLeft") {
+    y += canSpeed;
+    if (y + squareSize === height || (x + squareSize === 0 || x + squareSize === width)) {
+      state = "timeToExplode";
       y = height - squareSize;
     }
   }
-  
-  else if (state === "left") {
-    x -= speed;
-    if (x <= 0) {
-      state = "up";
-      x = 0;
-    }
-  }
- 
-  else if (state === "up") {
-    y -= speed;
-    if (y <= 0) {
-      state = "right";
-      y = 0;
-    }
+
+  if (state === "timeToExplode") {
+    x = 0;
+    y = 0;
   }
   
   square(x, y, squareSize);
