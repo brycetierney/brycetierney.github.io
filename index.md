@@ -6,4 +6,4 @@
 - ## Projects
 - Interactive scene
 
-- [Interactive Scene](scene)
+- [Interactive Scene](Scene)
