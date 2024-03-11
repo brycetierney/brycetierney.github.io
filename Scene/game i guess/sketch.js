@@ -6,7 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 
-let canSpawn = random(0, 10);
+let spawnCan = (0, 10);
 let x = 0;
 let y = 0;
 let radius = 65;
@@ -24,12 +24,17 @@ function draw() {
   
   if (state === "down" || state === "downRight" || state === "downLeft") {
     y += canSpeed;
-    if (y + radius === height || (x + radius === 0 || x + radius === width)) {
+    if (y - radius === height || (x - radius === 0 || x + radius === width)) {
       state = "timeToExplode";
-      y = height - radius;
+
     }
   }
-
+  function moveCan(){
+    if (x + radius/2 <= width) {
+      x += canSpeed;
+      circle(x, y, radius);
+    }
+  }
   if (state === "timeToExplode") {
     if (millis() >= recentContact + explodeWait) {
       recentContact = millis();
