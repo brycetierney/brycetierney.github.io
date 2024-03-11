@@ -6,34 +6,95 @@
 // - describe what you did to take this project "above and beyond"
 
 
-let x = 0;
-let y = 0;
-let squareSize = 65;
-let canSpeed = 3;
+let cX = 0;
+let cY = 0;
+let cSpawn;
+let cSpeed = 3;
+let cRadius = 65;
+
+
+let guyX = 0;
+let guyY = 0;
+let guySpeedX;
+let guySpeedY;
+let guyRadius = 35;
+
+
 let state = "down";
 
+
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
+  random(0, windowWidth);
 }
 
 function draw() {
   background(220);
   
-  if (state === "down" || state === "downRight" || state === "downLeft") {
-    y += canSpeed;
-    if (y + squareSize === height || (x + squareSize === 0 || x + squareSize === width)) {
+  if (state === "down") {
+    cY += cSpeed;
+    if (cY - cSpeed === height || (cX - cSpeed === 0 || cX + cSpeed === width)) {
       state = "timeToExplode";
-      y = height - squareSize;
+
+    }
+  }
+  if (state === "downRight") {
+    cX += cSpeed/2;
+    cY += cSpeed;
+    if (cY - cSpeed === height || (cX - cSpeed === 0 || cX + cSpeed === width)) {
+      state = "timeToExplode";
+
+    }
+  }
+  if (state === "downLeft") {
+    cX -= cSpeed/2;
+    cY += cSpeed;
+    if (cY - cSpeed === height || (cX - cSpeed === 0 || cX + cSpeed === width)) {
+      state = "timeToExplode";
+
     }
   }
 
+  function moveGuy(){
+    if (cX + cSpeed/2 <= width) {
+      cX += cSpeed;
+      circle(cX, cY, cSpeed);
+    }
+  }
   if (state === "timeToExplode") {
-    x = 0;
-    y = 0;
+    circle(0, 0, 0);
   }
   
-  square(x, y, squareSize);
+
+  function guyCircle() {
+    if (keyIsDown(87)) { //w
+      cY -= guySpeedY;
+    }
+    if (keyIsDown(83)) { //s
+      cY += guySpeedY;
+    }
+    if (keyIsDown(68)) { //d
+      cX += guySpeedY;
+    }
+    if (keyIsDown(65)) { //a
+      cX -= guySpeedY;
+    }
+    circle(guyX, guyY, guyRadius);
+  }
+  
+
+
+
+
+
+  // circle(cx, cy, cRadius);
+  // bowser(bx, by, bRadius);
 }
+
+
+
+circle(cX, cY, cRadius);
+guyCircle();
 
 // function everythingDown() {}
 
