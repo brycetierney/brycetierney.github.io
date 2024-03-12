@@ -38,13 +38,15 @@ function draw() {
   // Checking what the state is in order to display the proper screen
   if (gameState === "start") {
     startScreen();
-  } else if (gameState === "playing") {
+  }
+  else if (gameState === "playing") {
     moveBalls();
     drawBalls();
     moveGuy();
     drawGuy();
     checkCollision();
-  } else if (gameState === "gameOver") {
+  }
+  else if (gameState === "gameOver") {
     showGameOver();
   }
 }
@@ -63,35 +65,35 @@ function mousePressed() {
 // (moveBall 1-5) spawning in a ball randomly along the x axis and assigning random speeds and sizes
 function moveBall1() {
   cX1 = random(width);
-  cY1 = (0);
+  cY1 = 0;
   cSpeed1 = random(8, 25);
   cRadius1 = random(24, 75);
 }
 
 function moveBall2() {
   cX2 = random(width);
-  cY2 = (0);
+  cY2 = 0;
   cSpeed2 = random(10, 15);
   cRadius2 = random(30, 45);
 }
 
 function moveBall3() {
   cX3 = random(width);
-  cY3 = (0);
+  cY3 = 0;
   cSpeed3 = random(10, 20);
   cRadius3 = random(30, 60);
 }
 
 function moveBall4() {
   cX4 = random(width);
-  cY4 = (0);
+  cY4 = 0;
   cSpeed4 = random(3, 10);
   cRadius4 = random(9, 30);
 }
 
 function moveBall5() {
   cX5 = random(width);
-  cY5 = (0);
+  cY5 = 0;
   cSpeed5 = random(10, 20);
   cRadius5 = random(30, 60);
 }
