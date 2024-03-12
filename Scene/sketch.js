@@ -63,35 +63,35 @@ function mousePressed() {
 // (moveBall 1-5) spawning in a ball randomly along the x axis and assigning random speeds and sizes
 function moveBall1() {
   cX1 = random(width);
-  cY1 = random(-height, -height / 2);
+  cY1 = (0);
   cSpeed1 = random(8, 25);
   cRadius1 = random(24, 75);
 }
 
 function moveBall2() {
   cX2 = random(width);
-  cY2 = random(-height, -height / 2);
+  cY2 = (0);
   cSpeed2 = random(10, 15);
   cRadius2 = random(30, 45);
 }
 
 function moveBall3() {
   cX3 = random(width);
-  cY3 = random(-height, -height / 2);
+  cY3 = (0);
   cSpeed3 = random(10, 20);
   cRadius3 = random(30, 60);
 }
 
 function moveBall4() {
   cX4 = random(width);
-  cY4 = random(-height, -height / 2);
+  cY4 = (0);
   cSpeed4 = random(3, 10);
   cRadius4 = random(9, 30);
 }
 
 function moveBall5() {
   cX5 = random(width);
-  cY5 = random(-height, -height / 2);
+  cY5 = (0);
   cSpeed5 = random(10, 20);
   cRadius5 = random(30, 60);
 }
