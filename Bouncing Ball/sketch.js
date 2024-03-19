@@ -8,7 +8,7 @@ let radius = 30;
 let r = 0;
 let g = 255;
 let b = 0;
-let state = "start screen"
+let state = "start screen";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
