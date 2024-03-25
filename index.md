@@ -6,6 +6,9 @@
 - [Arrays and Objects](circles)
 - [Generative Art](art)
 - [Terrain generation](terrain)
+- 
+- [Bubble Movement](bubble)
 
 - ## Projects
 - [Interactive Scene](http://127.0.0.1:5500/Scene/)
+- [Arrays and Object Notation Assignment](space shooter)
