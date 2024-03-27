@@ -13,6 +13,7 @@ function setup() {
 
 function spawnShooter() {
   circle(width/2, height - radius, radius);
+  
 }
 
 
