@@ -46,21 +46,25 @@ function mousePressed() {
   let x = Math.floor(mouseX/cellSize);
   let y = Math.floor(mouseY/cellSize);
 
-  // console.log(x, y);
-
-  //don't fall off the edge of the grid...
-  if (x < GRID_SIZE && y < GRID_SIZE) {
-    toggleCell(x, y);
-  }
+  //toggle self and NESW neighbours
+  toggleCell(x, y);
+  toggleCell(x + 1, y);
+  toggleCell(x - 1, y);
+  toggleCell(x, y + 1);
+  toggleCell(x, y - 1);
 }
 
 function toggleCell(x, y) {
-  //toggle the color of the cell
-  if (grid[y][x] === 0) {
-    grid[y][x] = 1;
-  }
-  else {
-    grid[y][x] = 0;
+  // make sure the cell you're toggling is in the grid...
+  if (x < GRID_SIZE && y < GRID_SIZE &&
+      x >= 0 && y >= 0) {
+    //toggle the color of the cell
+    if (grid[y][x] === 0) {
+      grid[y][x] = 1;
+    }
+    else {
+      grid[y][x] = 0;
+    }
   }
 }
 
@@ -105,3 +109,4 @@ function generateEmptyGrid(cols, rows) {
   }
   return emptyArray;
 }
+
