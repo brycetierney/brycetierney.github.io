@@ -7,6 +7,8 @@
 - [Generative Art](art)
 - [Terrain generation](terrain)
 - 
+- [Character In Grid](character)
+- 
 - [Bubble Movement](bubble)
 
 - ## Projects
