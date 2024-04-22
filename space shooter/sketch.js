@@ -3,8 +3,8 @@
 // April 21th, 2024
 //
 // Extra for Experts:
-// I don't seem to have done anything that wasnt taught in class, but while i was making this, it felt like most things
-// I had to do werent taught in class.
+// I don't seem to have done anything that wasnt taught in class, but while i was making this, it felt like I didnt really know
+// how to do most of the things I was doing.
 // I am very sorry for how late this is and instead of trying to give reasons as to why it was late, I will just make
 // sure it does not happens again.
 
