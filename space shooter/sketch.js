@@ -1,20 +1,22 @@
-# Arrays and Object Notation Assignment
-# Bryce Tierney
-# April 8th, 2024
-#
-# Extra for Experts:
-# - describe what you did to take this project "above and beyond"
+// Space Shooter
+// Bryce Tierney
+// April 21th, 2024
+//
+// Extra for Experts:
+// I don't seem to have done anything that wasnt taught in class, but while i was making this, it felt like most things
+// I had to do werent taught in class.
+// I am very sorry for how late this is and instead of trying to give reasons as to why it was late, I will just make
+// sure it does not happens again.
 
-# Possible states: "START", "PLAYING", "GAMEOVER".
-
+// Possible states: "START", "PLAYING", "GAMEOVER".
 let gameState = "START";
 let player;
 let myBullets = [];
 let enemies = [];
 let enemyBullets = [];
-let score = [];
+let score = [0];
 
-# Setting game screen to the size of the width and height of the current window.\
+// Setting game screen to the size of the width and height of the current window.\
 function setup() {
   createCanvas(windowWidth, windowHeight);
   player = {
@@ -25,7 +27,7 @@ function setup() {
   };
 }
 
-# Setting the correct screen to display based off of the current state.
+// Setting the correct screen to display based off of the current state.
 function draw() {
   background(220);
 
@@ -47,7 +49,7 @@ function draw() {
 }
 
 
-# Making your score display on the top right hand corner.
+// Making your score display on the top right hand corner.
 function displayScore() {
   if (gameState === "PLAYING") {
     textSize(40);
@@ -56,7 +58,7 @@ function displayScore() {
   }
 }
 
-# Moving my circle with the arrow keys.
+// Moving my circle with the arrow keys.
 function movePlayer() {
   if (keyIsDown(LEFT_ARROW) && player.x > player.size / 2) {
     player.x -= player.speed;
@@ -68,7 +70,7 @@ function movePlayer() {
   circle(player.x, player.y, player.size);
 }
 
-# Calling my bullets into play and identifying them by their index value in an array (also killing if it goes off screen)
+// Calling my bullets into play and identifying them by their index value in an array (also killing if it goes off screen)
 function handleMyBullets() {
   for (let i = myBullets.length - 1; i >= 0; i--) {
     myBullets[i].y -= 20;
@@ -80,7 +82,7 @@ function handleMyBullets() {
   }
 }
 
-# Making a randomly spawned enemy every so often.
+// Making a randomly spawned enemy every so often.
 function handleEnemies() {
   if (frameCount % 60 === 0) {
     let enemy = {
@@ -91,14 +93,14 @@ function handleEnemies() {
     };
     enemies.push(enemy);
   }
-  # Every time frameCount % 60 = 0, this loop will initate.
+  // Every time frameCount % 60 = 0, this loop will initate.
   for (let enemy of enemies) {
-    # This makes the enemies move once they spawn from above.
+    // This makes the enemies move once they spawn from above.
     enemy.y += enemy.speed;
     fill("black");
     square(enemy.x, enemy.y, enemy.size);
-    # Making the enemy bullets spawn at good ratio/speed
-    if (random(1) < 0.1) {
+    // Making the enemy bullets spawn at good ratio/speed
+    if (random(1) < 0.05) {
       let enemyBullet = {
         x: random(enemy.x - enemy.size / 8, enemy.x + enemy.size),
         y: enemy.y + enemy.size / 2,
@@ -107,10 +109,11 @@ function handleEnemies() {
     }
   }
 }
-# Calling my bullets into play and identifying them by their index value in an array (also killing if it goes off screen) (Also just the same thing as handleMyBullets funciton)
+// Calling my bullets into play and identifying them by their index value in an array (also killing if it goes off screen)
+// (Also just the same thing as handleMyBullets funciton)
 function handleEnemyBullets() {
   for (let i = enemyBullets.length - 1; i >= 0; i--) {
-    enemyBullets[i].y += 15;
+    enemyBullets[i].y += 10;
     fill("orange");
     circle(enemyBullets[i].x, enemyBullets[i].y, 10);
     if (enemyBullets[i].y > height) {
@@ -119,11 +122,12 @@ function handleEnemyBullets() {
   }
 }
 
-# Checking for collision between the bullets, or between either the enemies bullet and you, or your bullet and the enemy, in which you would get a point added to score.
+// Checking for collision between the bullets, or between either the enemies bullet and you, or your bullet and the enemy, in which you would get a point added to score.
 function checkCollisions() {
+  // If you hit an enemy, it dies and you get a point
   for (let i = myBullets.length - 1; i >= 0; i--) {
     for (let j = enemies.length - 1; j >= 0; j--) {
-      if (dist(myBullets[i].x, myBullets[i].y, enemies[j].x, enemies[j].y) < 15 + enemies[j].size / 2) {
+      if (dist(myBullets[i].x - 15, myBullets[i].y, enemies[j].x, enemies[j].y) < 15 + enemies[j].size / 2) {
         myBullets.splice(i, 1);
         enemies.splice(j, 1);
         score ++;
@@ -131,17 +135,17 @@ function checkCollisions() {
       }
     }
   }
-  # If your bullet hits an enemy bullet, they both get killed.
+  // If your bullet hits an enemy bullet, they both get killed.
   for (let i = myBullets.length - 1; i >= 0; i--) {
     for (let j = enemyBullets.length - 1; j >= 0; j--) {
-      if (dist(myBullets[i].x,myBullets[i].y,enemyBullets[j].x,enemyBullets[j].y) < 20) {
+      if (dist(myBullets[i].x, myBullets[i].y, enemyBullets[j].x, enemyBullets[j].y) < 20) {
         myBullets.splice(i, 1);
         enemyBullets.splice(j, 1);
         break;
       }
     }
   }
-  # If a bullet hits you, you die.
+  // If a bullet hits you, you die.
   for (let i = enemyBullets.length - 1; i >= 0; i--) {
     if (dist(enemyBullets[i].x, enemyBullets[i].y, player.x, player.y) < 15 + player.size / 2) {
       gameState = "GAMEOVER";
@@ -149,7 +153,7 @@ function checkCollisions() {
   }
 }
 
-# Displaying startScreen
+// Displaying startScreen
 function displayStartScreen() {
   textAlign(CENTER, CENTER);
   textSize(50);
@@ -157,7 +161,7 @@ function displayStartScreen() {
   text("Press SPACE to Start", width / 2, height / 2);
 }
 
-# Displaying gameOver screen
+// Displaying gameOver screen
 function displayGameOver() {
   textAlign(CENTER, CENTER);
   textSize(50);
@@ -171,7 +175,7 @@ function displayGameOver() {
   text("Score: "+ score, width / 2, height / 2 + 50);
 }
 
-# Only allowing the space bar to do one thing at a time/allowing it to have multiple uses based off of the gameState.
+// Only allowing the space bar to do one thing at a time/allowing it to have multiple uses based off of the gameState.
 function keyPressed() {
   if (gameState === "START" && key === " ") {
     gameState = "PLAYING";
@@ -188,12 +192,13 @@ function keyPressed() {
   }
 }
 
-# Resetting all the variables as they would be when you refresh the page.
+// Resetting all the variables as they would be when you refresh the page.
 function restartGame() {
   player.x = width / 2;
   player.y = height - 50;
   myBullets = [];
   enemies = [];
   enemyBullets = [];
+  score = [0];
   gameState = "PLAYING";
 }
