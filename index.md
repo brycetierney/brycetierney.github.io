@@ -10,7 +10,8 @@
 - [Character In Grid](character)
 - 
 - [Bubble Movement](bubble)
+- [space shooter](space-shooter)
+- [2048](2048)
 
 - ## Projects
 - [Interactive Scene](http://127.0.0.1:5500/Scene/)
-- [Arrays and Object Notation Assignment](space shooter)
