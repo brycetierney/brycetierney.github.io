@@ -13,6 +13,7 @@
 - [space shooter](space-shooter)
 - [2048](2048)
 - [Walker OOP Demo](Walker OOP Demo)
+- [Fireworks](Fireworkd OOP Demo)
 
 - ## Projects
 - [Interactive Scene](http://127.0.0.1:5500/Scene/)
