@@ -2,6 +2,10 @@
 // Bryce Tierney
 // May 6, 2024
 
+
+let GRID_SIZE = floor(width / 25);
+let CELL_SIZE = floor(width / GRID_SIZE);
+
 // Defining variables
 let grid;
 let snake;
@@ -15,8 +19,6 @@ function setup() {
   frameRate(9);
 
   // Calculate grid and cell size based on canvas dimensions
-  GRID_SIZE = floor(width / 25);
-  CELL_SIZE = floor(width / GRID_SIZE);
 
 
   // Initialize the grid
@@ -29,7 +31,8 @@ function draw() {
 
   if (state === "home") {
     drawHomeScreen();
-  } else {
+  }
+  else {
     // Calling funcitons move, draw and check collisions
     moveSnake();
     drawSnake();
@@ -63,7 +66,8 @@ function keyPressed() {
     if (key === "1") {
       state = "normal";
       displayGame();
-    } else if (key === "2") {
+    }
+    else if (key === "2") {
       state = "god";
       displayGame();
     }
@@ -72,11 +76,14 @@ function keyPressed() {
   // Checking your current direction and deciding if you can move that way
   else if (keyCode === UP_ARROW && direction.y === 0) {
     direction = createVector(0, -1);
-  } else if (keyCode === DOWN_ARROW && direction.y === 0) {
+  }
+  else if (keyCode === DOWN_ARROW && direction.y === 0) {
     direction = createVector(0, 1);
-  } else if (keyCode === LEFT_ARROW && direction.x === 0) {
+  }
+  else if (keyCode === LEFT_ARROW && direction.x === 0) {
     direction = createVector(-1, 0);
-  } else if (keyCode === RIGHT_ARROW && direction.x === 0) {
+  }
+  else if (keyCode === RIGHT_ARROW && direction.x === 0) {
     direction = createVector(1, 0);
   }
 }
@@ -108,7 +115,8 @@ function drawSnake() {
   for (let i = 0; i < snake.length; i++) {
     if (i === 0) {
       fill(0, 255, 0);
-    } else {
+    }
+    else {
       fill(0, 155, 0);
     }
     // Drawing the snake and constantly moving it based on its index value changing as it moves
@@ -166,7 +174,8 @@ function moveSnake() {
   snake.unshift(head);
   if (!head.equals(food)) {
     snake.pop();
-  } else {
+  }
+  else {
     spawnFood();
   }
 }
@@ -177,12 +186,21 @@ function checkCollisions() {
   if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE) {
     if (state !== "god") {
       gameOver();
-    } else {
+    }
+    else {
       // Wrap around to the opposite side if in god mode
-      if (head.x < 0) head.x = GRID_SIZE - 1;
-      else if (head.x >= GRID_SIZE) head.x = 0;
-      if (head.y < 0) head.y = GRID_SIZE - 1;
-      else if (head.y >= GRID_SIZE) head.y = 0;
+      if (head.x < 0) {
+        head.x = GRID_SIZE - 1;
+      }
+      else if (head.x >= GRID_SIZE) {
+        head.x = 0;
+      }
+      if (head.y < 0) {
+        head.y = GRID_SIZE - 1;
+      }
+      else if (head.y >= GRID_SIZE) {
+        head.y = 0;
+      }
     }
   }
 
