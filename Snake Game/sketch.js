@@ -3,15 +3,14 @@
 // May 6, 2024
 
 
-let GRID_SIZE = floor(width / 25);
-let CELL_SIZE = floor(width / GRID_SIZE);
-
 // Defining variables
+let GRID_SIZE;
+let CELL_SIZE;
 let grid;
 let snake;
 let food;
 let direction;
-let state = "home";
+let gameState = "home";
 
 // Setup function to initialize the game
 function setup() {
@@ -19,33 +18,31 @@ function setup() {
   frameRate(9);
 
   // Calculate grid and cell size based on canvas dimensions
-
+  GRID_SIZE = floor(height / 45);
+  CELL_SIZE = floor(height / GRID_SIZE);
 
   // Initialize the grid
   grid = drawGrid();
+
+  // Initialize snake, food and direction
+  snake = [];
+  food = createVector();
+  direction = createVector();
 }
 
-// Initializing different funcitons depending on what the state is
+// Calling and initializing funcitons depending on what the gamegameState is
 function draw() {
   background(255);
 
-  if (state === "home") {
+  if (gameState === "home") {
     drawHomeScreen();
   }
-  else {
-    // Calling funcitons move, draw and check collisions
+  else if (gameState === "normal" || gameState === "easy") {
     moveSnake();
     drawSnake();
     checkCollisions();
-
-    // Draw the grid and food
-    drawGrid();
     drawFood();
-
-    // Display messages if on god mode
-    if (state === "god") {
-      drawGodModeMessage();
-    }
+    drawGrid();
   }
 }
 
@@ -57,18 +54,18 @@ function drawHomeScreen() {
   text("Snake Game", width / 2, height / 4);
   textSize(20);
   text("Press 1 for Normal Mode", width / 2, height / 2);
-  text("Press 2 for God Mode", width / 2, height / 2 + 40);
+  text("Press 2 for Easy Mode", width / 2, height / 2 + 40);
 }
 
-// Checking if the state is the home screen and changing state to either normal or god then initializing the game
+// Checking if the gameState is the home screen and changing gameState to either normal or easy mode, then initializing the game
 function keyPressed() {
-  if (state === "home") {
+  if (gameState === "home") {
     if (key === "1") {
-      state = "normal";
+      gameState = "normal";
       displayGame();
     }
     else if (key === "2") {
-      state = "god";
+      gameState = "easy";
       displayGame();
     }
   }
@@ -88,14 +85,14 @@ function keyPressed() {
   }
 }
 
-// Function to initialize the game
+// Initialize the game
 function displayGame() {
   snake = [{ x: 10, y: 10 }];
 
-  // Initialize the food
+  // Call the food
   spawnFood();
 
-  // Spawn the initial snake stabnding still
+  // Spawn the initial snake (standing still)
   direction = createVector(0, 0);
 }
 
@@ -110,52 +107,42 @@ function drawGrid() {
   }
 }
 
-// Function to draw the snake and making the head a lighter green than the rest of the body
+// Draw the snake and making the head a lighter green than the rest of the body
 function drawSnake() {
   for (let i = 0; i < snake.length; i++) {
-    if (i === 0) {
+    if (i === 0) { // The index value 0 indicates the head of the snake, therefore make it light green
       fill(0, 255, 0);
     }
-    else {
+    else { // Rest of the body will be a darker green
       fill(0, 155, 0);
     }
-    // Drawing the snake and constantly moving it based on its index value changing as it moves
+    // Constantly re drawing the snake at the new coordinates based on the index value of i
     square(snake[i].x * CELL_SIZE, snake[i].y * CELL_SIZE, CELL_SIZE);
   }
 }
 
-// Function to draw the food and make it red
+// Draw the food and make it red
 function drawFood() {
   fill(255, 0, 0);
   square(food.x * CELL_SIZE, food.y * CELL_SIZE, CELL_SIZE);
 }
 
-// Function to draw the God Mode message
-function drawGodModeMessage() {
-  fill(0);
-  textAlign(RIGHT, TOP);
-  textSize(15);
-  text("God Mode: You cannot die", width - 10, 10);
-}
-
-// Function to spawn food at a random location (excluding where the snake currently is)
+// Allowing food to be able to spawn at a random location (excluding where the snake currently is)
 function spawnFood() {
   let validSpawns = [];
 
-  // Loop through each cell on the grid to check if it is occupied and if not, consider it a spawnable location (validSPawns)
+  // Look through each cell on the grid to check if it is occupied and if not, consider it a spawnable location (validSPawns)
   for (let i = 0; i < GRID_SIZE; i++) {
     for (let j = 0; j < GRID_SIZE; j++) {
       let isOccupied = false;
-
-      // Check if the current cell is occupied by the snake, if it is, end the funciton
+      // If the current cell is occupied by the snake, end the funciton.
       for (let k = 0; k < snake.length; k++) {
         if (snake[k].x === i && snake[k].y === j) {
           isOccupied = true;
           break;
         }
       }
-
-      // If the cell is not occupied, add it to the validSpawns array which will have a random position picked from it to have the food spawn at
+      // If the cell is not occupied, add it's location to the validSpawns array
       if (!isOccupied) {
         validSpawns.push({ x: i, y: j });
       }
@@ -167,15 +154,15 @@ function spawnFood() {
   food = createVector(validSpawns[randomIndex].x, validSpawns[randomIndex].y);
 }
 
-// Function to move the snake
+// Function to move snake
 function moveSnake() {
   let head = createVector(snake[0].x, snake[0].y);
-  head.add(direction);
-  snake.unshift(head);
-  if (!head.equals(food)) {
+  head.add(direction); // Moving in correct direction
+  snake.unshift(head); // Adding head to the beggining of the snake array, moving it forward
+  if (!head.equals(food)) { // If the head's location didnt just match the food's, get rid of the tail giving it the moving effect
     snake.pop();
   }
-  else {
+  else { // This means that the food was just eaten, and the tail will essentially gain 1 length by not popping it
     spawnFood();
   }
 }
@@ -184,11 +171,11 @@ function moveSnake() {
 function checkCollisions() {
   let head = snake[0];
   if (head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE) {
-    if (state !== "god") {
+    if (gameState !== "easy") {
       gameOver();
     }
     else {
-      // Wrap around to the opposite side if in god mode
+      // Wrap around to the opposite side if in easy mode
       if (head.x < 0) {
         head.x = GRID_SIZE - 1;
       }
@@ -204,10 +191,9 @@ function checkCollisions() {
     }
   }
 
-  if (state !== "god") {
+  if (gameState !== "easy") {
     for (let i = 1; i < snake.length; i++) {
-      if (head.equals(snake[i])) {
-        // Snake collided with itself, game over
+      if (head.equals(snake[i])) { // This means the snake collided with itself and game over
         gameOver();
       }
     }
@@ -216,5 +202,5 @@ function checkCollisions() {
 
 // Function to put you back to the home screen after you die
 function gameOver() {
-  state = "home";
+  gameState = "home";
 }
