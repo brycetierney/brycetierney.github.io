@@ -15,6 +15,7 @@
 - [Walker OOP Demo](Walker OOP Demo)
 - [Fireworks](Fireworkd OOP Demo)
 - [Clickable Button Demo](Clickable)
+- [Recursive Circles](recursive circles)
 
 - ## Projects
 - [Interactive Scene](http://127.0.0.1:5500/Scene/)
