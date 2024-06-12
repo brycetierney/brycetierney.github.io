@@ -19,3 +19,5 @@
 - [sir pinky's triangle](pinky triangle)
 - ## Projects
 - [Interactive Scene](http://127.0.0.1:5500/Scene/)
+
+- [Grid assignment](Snake Game)
